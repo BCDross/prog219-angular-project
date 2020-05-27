@@ -1,0 +1,55 @@
+<h2>My Tasks</h2>
+
+<div>
+  <label>
+    Task:
+    <input #TaskName />
+  </label>
+  <label>
+    Description:
+    <input #Description />
+  </label>
+  <label>
+    Creator:
+  <input #Creator />
+</label>
+<label>
+  Owner:
+<input #Owner />
+</label>
+ <label>
+   Description:
+    <input #Description />
+  </label>
+  <label>
+    Status:
+    <input #Status />
+  </label>
+  <label>
+    Notes:
+    <input #Notes />
+  </label>
+
+  <button
+    (click)="
+      add(TaskName.value, Description.value, Status.value, Notes.value);
+      TaskName.value = '';
+      Description.value = '';
+      Creator.value = '';
+      Owner.value = '';
+      Status.value = '';
+      Notes.value = ''
+    "
+  >
+    Add new Task
+  </button>
+</div>
+
+<ul class="tasks">
+  <li *ngFor="let task of tasks">
+    <a routerLink="/updatetask/{{ task.id }}">
+      <span class="badge">{{ task.taskID }}</span> {{ task.name }}
+    </a>
+    <button class="delete" title="delete task" (click)="delete(task)">x</button>
+  </li>
+</ul>
