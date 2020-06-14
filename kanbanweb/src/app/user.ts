@@ -3,7 +3,7 @@ export interface User {
   Name: string;
   UserName: string;
   Password: string;
-  SSOActivated: boolean;
-  SSOAuthKey: string;
-  SSOAuthDate: string;
+  // SSOActivated: boolean;
+  // SSOAuthKey: string;
+  // SSOAuthDate: string;
 }

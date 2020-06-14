@@ -14,19 +14,19 @@ export class TaskService {
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>('http://localhost:3000/tasks');
-    // this.messageService.add('Tasks Service: Tasks fetched');
+    this.messageService.add('Tasks Service: Tasks fetched');
   }
 
   getTask(id: number): Observable<Task> {
-    return this.http.get<Task>('http://localhost:3000/tasks' + id);
+    return this.http.get<Task>('http://localhost:3000/tasks/' + id);
   }
 
   updateTask(task: Task): Observable<void> {
-    return this.http.put<void>('http://localhost:3000/tasks' + task.TaskID, task);
+    return this.http.put<void>('http://localhost:3000/tasks/' + task.TaskID, task);
   }
 
   deleteTask(task: Task) {
-    return this.http.delete('http://localhost:3000/tasks' + task.TaskID);
+    return this.http.delete('http://localhost:3000/tasks/' + task.TaskID);
   }
 
   addTask(task: Task): Observable<Task> {

@@ -1,1 +1,46 @@
-<p>update-task works!</p>
+<form *ngIf="task">
+  <h2>Edit {{ task.TaskName | uppercase }}</h2>
+  <div><span>TaskID: </span> {{ task.TaskID }}</div>
+  <div>
+    <label>
+      TaskName:
+      <input [(ngModel)]="task.TaskName" placeholder="TaskName" /> </label
+    ><br />
+    <label>
+      Task:
+      <input [(ngModel)]="task.Description" placeholder="Description" /> </label
+    ><br />
+    <!-- <label>
+    Creator:
+    <input #Creator /> 
+  </label><br />
+  <label>
+    Owner:
+    <input #Owner /> 
+  </label><br /> 
+  <form-field>
+    <label>Status</label>
+    <select matNativeControl required [(ngModel)]="task.Status" #Status>
+      <option value="new task">New Task</option>
+      <option value="in progress">In Progress</option>
+      <option value="completed">Completed</option>
+      <option value="on hold">On Hold</option>
+    </select>
+  </form-field> -->
+    <label>
+      Status:
+      <input [(ngModel)]="task.Status" placeholder="Status" /> </label
+    ><br />
+    <br />
+    <label>
+      Notes:
+      <input [(ngModel)]="task.Notes" placeholder="Notes" /> </label
+    ><br />
+    <mat-checkbox [(ngModel)]="task.Archived">Archived?</mat-checkbox>
+    <br />
+  </div>
+  <button (click)="update()">
+    Update Task
+  </button>
+  <button (click)="delete()">Delete Task</button>
+</form>

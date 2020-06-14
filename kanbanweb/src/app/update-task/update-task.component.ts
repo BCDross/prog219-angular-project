@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
 
@@ -9,36 +10,36 @@ import { TaskService } from '../task.service';
   styleUrls: ['./update-task.component.scss']
 })
 export class UpdateTaskComponent implements OnInit {
-  tasks: Task[];
+  task: Task;
 
-  constructor(private taskService: TaskService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private taskService: TaskService,
+    private location: Location
+    ) { }
 
-  ngOnInit() {
-    this.getTasks();
+  ngOnInit(): void {
+    this.getTask();
   }
 
-  getTasks(): void {
-    this.taskService.getTasks().subscribe((tasks) => (this.tasks = tasks));
+  getTask(): void {
+    const id = +this.route.snapshot.paramMap.get('TaskID');
+    this.taskService.getTask(id).subscribe();
   }
 
-  delete(task: Task): void {
-    this.tasks = this.tasks.filter((t) => t !== task);
-    this.taskService.deleteTask(task).subscribe();
+  goBack(): void {
+    this.location.back();
   }
 
-  add(TaskName: string, Description: string, Creator: string, Owner: string, Status: string, Notes: string): void {
-    TaskName = TaskName.trim();
-    Description = Description.trim();
-    Creator = Creator.trim();
-    Owner = Owner.trim();
-    Status = Status.trim();
-    Notes = Notes.trim();
-    if (!TaskName) {
-      return;
-    }
-    this.taskService.addTask({ TaskName, Description, Creator, Owner, Status, Notes } as Task).subscribe((task) => {
-      this.tasks.push(task);
-    });
+
+  update(): void {
+    this.taskService.updateTask(this.task)
+    .subscribe(() => this.goBack());
+  }
+
+  delete(): void {
+    this.taskService.deleteTask(this.task)
+    .subscribe(() => this.goBack());
   }
 
 }

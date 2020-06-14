@@ -6,11 +6,11 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var favicon = require('serve-favicon');
 
-const cors = require('cors');
+const cors = require('cors')
 const corsOptions = {
   origin: 'http://localhost:4200',
   optionsSuccessStatus: 200
-};
+}
 
 var indexRouter = require('./routes/index');
 
@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
 
 // development error handler, prints stack
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+    app.use(function(err, req, res, next) {
       res.status(err.status || 500);
       res.render('error', {
           message: err.message,

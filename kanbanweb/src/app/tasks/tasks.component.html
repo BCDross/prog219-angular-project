@@ -1,55 +1,61 @@
-<h2>My Tasks</h2>
+<h2>Your Tasks</h2>
 
-<div>
+<form [formGroup]="newTaskForm" (ngSubmit)="onSubmit()">
   <label>
     Task:
-    <input #TaskName />
-  </label>
+    <input #TaskName /> 
+  </label><br />
   <label>
     Description:
     <input #Description />
-  </label>
-  <label>
-    Creator:
-  <input #Creator />
-</label>
-<label>
-  Owner:
-<input #Owner />
-</label>
- <label>
-   Description:
-    <input #Description />
-  </label>
+  </label><br />
   <label>
     Status:
     <input #Status />
-  </label>
+  </label><br />
+  <!-- <label>
+    Creator:
+    <input #Creator /> 
+  </label><br />
+  <label>
+    Owner:
+    <input #Owner /> 
+  </label><br />
+  <form-field>
+    <label>Status</label>
+    <select matNativeControl required #Status>
+      <option value="new task">New Task</option>
+      <option value="in progress">In Progress</option>
+      <option value="completed">Completed</option>
+      <option value="on hold">On Hold</option>
+    </select>
+  </form-field><br /> -->
   <label>
     Notes:
-    <input #Notes />
-  </label>
-
+    <input #Notes /> 
+  </label><br />
+  <br />
   <button
     (click)="
       add(TaskName.value, Description.value, Status.value, Notes.value);
       TaskName.value = '';
       Description.value = '';
-      Creator.value = '';
-      Owner.value = '';
       Status.value = '';
-      Notes.value = ''
-    "
-  >
-    Add new Task
+      Notes.value = '';
+      "
+      >
+      <!-- The following are value params for the above button action. 
+    Creator.value = '';
+        Owner.value = ''; -->
+      Add new Task
   </button>
-</div>
+</form>
 
 <ul class="tasks">
   <li *ngFor="let task of tasks">
-    <a routerLink="/updatetask/{{ task.id }}">
-      <span class="badge">{{ task.taskID }}</span> {{ task.name }}
+    <a routerLink="/update-task/{{ task.TaskID }}">
+      <span class="badge">{{ task.TaskID }}</span> {{ task.TaskName }}
     </a>
-    <button class="delete" title="delete task" (click)="delete(task)">x</button>
+    <button class="delete" title="delete task" (click)="delete(task)">Delete Task</button>
   </li>
 </ul>

@@ -1,1 +1,1 @@
-[{"ID":1,"Name":"Darren","UserName":"darren","Password":"darren","SSOActivated":false,"SSOAuthDate":"","SSOAuthKey":""}]
+[{"UserID":1,"Name":"Darren","UserName":"darren","Password":"darren","Deleted":false},{"UserID":2,"Name":"Kurt","UserName":"kurt","Password":"kurt","Deleted":false},{"UserID":3,"Name":"Debi","UserName":"debi","Password":"debi","Deleted":false},{"UserID":4,"Name":"Sheldon","UserName":"sheldon","Password":"sheldon","Deleted":false},{"UserID":5,"Name":"Mark","UserName":"mark","Password":"mark","Deleted":false}]
