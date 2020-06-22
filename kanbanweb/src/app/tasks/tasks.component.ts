@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tasks',
@@ -9,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
+  stages: string[] = ['New Task', 'In Progress', 'On Hold', 'Complete'];
   tasks: Task[];
   nextID: number;
   newTaskForm = new FormGroup({
@@ -37,7 +39,7 @@ export class TasksComponent implements OnInit {
   }
 
   add(TaskName: string, Description: string, Status: string,
-      Notes: string, Archived: boolean = false/*, Creator: string, Owner: string*/): void {
+      Notes: string, Archived: string = 'false'/*, Creator: string, Owner: string*/): void {
     TaskName = TaskName.trim();
     Description = Description.trim();
     Status = Status;
@@ -55,6 +57,10 @@ export class TasksComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.newTaskForm.value);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
   }
 
 }

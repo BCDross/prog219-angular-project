@@ -23,16 +23,21 @@ export class UpdateTaskComponent implements OnInit {
   }
 
   getTask(): void {
-    const id = +this.route.snapshot.paramMap.get('TaskID');
-    this.taskService.getTask(id).subscribe();
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.taskService.getTask(id).subscribe((task) => (this.task = task));
   }
 
   goBack(): void {
     this.location.back();
   }
 
-
-  update(): void {
+  update(TaskName: string, Description: string, Status: string,
+         Notes: string, Archived: string): void {
+    this.task.TaskName = TaskName.trim();
+    this.task.Description = Description.trim();
+    this.task.Status = Status.trim();
+    this.task.Notes = Notes.trim();
+    this.task.Archived = Archived.trim();
     this.taskService.updateTask(this.task)
     .subscribe(() => this.goBack());
   }

@@ -90,22 +90,19 @@ router.get("/tasks/:id", function (req, res) {
 });
 
 router.put("/tasks/:id", function (req, res) {
+  let found = false;
   let updatedTask = req.body;
   for (var i = 0; i < taskArray.length; i++) {
-    if (taskArray[i].TaskID == req.params.id) {
-      taskArray[i].TaskName = req.params.TaskName;
-      taskArray[i].Description = req.params.Description;
-      taskArray[i].CreatorID = req.params.CreatorID;
-      taskArray[i].OwnerID = req.params.OwnerID;
-      taskArray[i].Status = req.params.Status;
-      taskArray[i].Notes = req.params.Notes;
+    if (taskArray[i].TaskID == updatedTask.TaskID) {
+      taskArray.splice(i, 1, updatedTask);
+      fileManager.write();
       console.log(taskArray[i]);
       found = true;
       res.status(200).json(taskArray[i]);
     }
   }
   if (found === false) {
-    res.status(500).send(err);
+    res.status(500).send("No task with ID: " + req.params.id + " found.");
   }
 });
 
@@ -119,7 +116,7 @@ router.delete("/tasks/:id", function (req, res) {
     }
   }
   if (found === false) {
-    res.status(500).send(err);
+    res.status(500).send("No task with ID: " + req.params.id + " found.");
   }
 });
 
@@ -128,7 +125,7 @@ router.post("/tasks", function (req, res) {
     return a.TaskID - b.TaskID;
   });
   var newID = taskArray[taskArray.length - 1].TaskID + 1;
-  var newTask = new Task(newID, req.body.TaskName, req.body.Description, req.body.CreatorID, req.body.OwnerID, req.body.Status, req.body.Notes);
+  var newTask = new Task(newID, req.body.TaskName, req.body.Description, req.body.Status, req.body.Notes, req.body.Archived); /*req.body.CreatorID, req.body.OwnerID, */
   taskArray.push(newTask);
   fileManager.write();
   res.status(200).json(newTask);
@@ -136,71 +133,69 @@ router.post("/tasks", function (req, res) {
 
 // Users API calls
 
-router.get("/users", function (req, res) {
-  fileManager.read();
-  userArray.forEach(element => {
-    console.log(element);  
-  });
-  res.status(200).json(userArray);
-});
+// router.get("/users", function (req, res) {
+//   fileManager.read();
+//   userArray.forEach(element => {
+//     console.log(element);  
+//   });
+//   res.status(200).json(userArray);
+// });
 
-router.get("/users/:id", function (req, res) {
-  let found = false;
-  for (var i = 0; i < userArray.length; i++) {
-    if (userArray[i].id == req.params.id) {
-      console.log(userArray[i]);
-      found = true;
-      res.status(200).json(userArray[i]);
-    }
-  }
-  if (found === false) {
-    res.status(500).send("No user with ID: " + req.params.id + "found.");
-  }
-});
+// router.get("/users/:id", function (req, res) {
+//   let found = false;
+//   for (var i = 0; i < userArray.length; i++) {
+//     if (userArray[i].id == req.params.id) {
+//       console.log(userArray[i]);
+//       found = true;
+//       res.status(200).json(userArray[i]);
+//     }
+//   }
+//   if (found === false) {
+//     res.status(500).send("No user with ID: " + req.params.id + "found.");
+//   }
+// });
 
-router.put("/users/:id", function (req, res) {
-  let updatedUser = req.body;
-  for (var i = 0; i < userArray.length; i++) {
-    if (userArray[i].id == req.params.id) {
-      userArray[i].TaskName = updatedUser.TaskName;
-      userArray[i].Description = updatedUser.Description;
-      userArray[i].CreatorID = updatedUser.CreatorID;
-      userArray[i].OwnerID = updatedUser.OwnerID;
-      userArray[i].Status = updatedUser.Status;
-      userArray[i].Notes = updatedUser.Notes;
-      console.log(userArray[i]);
-      found = true;
-      res.status(200).json(userArray[i]);
-    }
-  }
-  if (found === false) {
-    res.status(500).send(err);
-  }
-});
+// router.put("/users/:id", function (req, res) {
+//   let updatedUser = req.body;
+//   for (var i = 0; i < userArray.length; i++) {
+//     if (userArray[i].id == req.params.id) {
+//       userArray[i].TaskName = updatedUser.TaskName;
+//       userArray[i].Description = updatedUser.Description;
+//       userArray[i].Status = updatedUser.Status;
+//       userArray[i].Notes = updatedUser.Notes;
+//       console.log(userArray[i]);
+//       found = true;
+//       res.status(200).json(userArray[i]);
+//     }
+//   }
+//   if (found === false) {
+//     res.status(500).send(err);
+//   }
+// });
 
-router.delete("/users/:id", function (req, res) {
-  for (var i =0; i < userArray.length; i++) {
-    if (userArray[i].id == req.params.id) {
-      userArray.splice(i, 1);
-      found = true;
-      fileManager.write();
-      res.status(200).json("Deleted user, ID: " + req.params.id)
-    }
-  }
-  if (found === false) {
-    res.status(500).send(err);
-  }
-});
+// router.delete("/users/:id", function (req, res) {
+//   for (var i =0; i < userArray.length; i++) {
+//     if (userArray[i].id == req.params.id) {
+//       userArray.splice(i, 1);
+//       found = true;
+//       fileManager.write();
+//       res.status(200).json("Deleted user, ID: " + req.params.id)
+//     }
+//   }
+//   if (found === false) {
+//     res.status(500).send(err);
+//   }
+// });
 
-router.post("/users", function (req, res) {
-  userArray.sort(function (a, b) {
-    return a.id - b.id;
-  });
-  var newID = userArray[userArray.length - 1].id + 1;
-  var newUser = new User(newID, req.body.Name, req.body.UserName, req.body.CreatorID, req.body.OwnerID, req.body.Status, req.body.Notes);
-  taskArray.push(newTask);
-  fileManager.write();
-  res.status(200).json(newTask);
-});
+// router.post("/users", function (req, res) {
+//   userArray.sort(function (a, b) {
+//     return a.id - b.id;
+//   });
+//   var newID = userArray[userArray.length - 1].id + 1;
+//   var newUser = new User(newID, req.body.Name, req.body.UserName, req.body.CreatorID, req.body.OwnerID, req.body.Status, req.body.Notes);
+//   taskArray.push(newTask);
+//   fileManager.write();
+//   res.status(200).json(newTask);
+// });
 
 module.exports = router;

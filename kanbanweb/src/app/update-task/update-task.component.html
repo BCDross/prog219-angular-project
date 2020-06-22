@@ -4,11 +4,19 @@
   <div>
     <label>
       TaskName:
-      <input [(ngModel)]="task.TaskName" placeholder="TaskName" /> </label
+      <input
+        #TaskName
+        name="TaskName"
+        [(ngModel)]="task.TaskName"
+        placeholder="TaskName" /></label
     ><br />
     <label>
       Task:
-      <input [(ngModel)]="task.Description" placeholder="Description" /> </label
+      <input
+        #Description
+        name="Description"
+        [(ngModel)]="task.Description"
+        placeholder="Description" /></label
     ><br />
     <!-- <label>
     Creator:
@@ -17,30 +25,53 @@
   <label>
     Owner:
     <input #Owner /> 
-  </label><br /> 
-  <form-field>
-    <label>Status</label>
-    <select matNativeControl required [(ngModel)]="task.Status" #Status>
-      <option value="new task">New Task</option>
-      <option value="in progress">In Progress</option>
-      <option value="completed">Completed</option>
-      <option value="on hold">On Hold</option>
-    </select>
-  </form-field> -->
+  </label><br /> -->
     <label>
       Status:
-      <input [(ngModel)]="task.Status" placeholder="Status" /> </label
+      <input
+        #Status
+        name="Status"
+        [(ngModel)]="task.Status"
+        placeholder="Status" /></label
     ><br />
-    <br />
     <label>
       Notes:
-      <input [(ngModel)]="task.Notes" placeholder="Notes" /> </label
+      <input
+        #Notes
+        name="Notes"
+        [(ngModel)]="task.Notes"
+        placeholder="Notes" /></label
     ><br />
-    <mat-checkbox [(ngModel)]="task.Archived">Archived?</mat-checkbox>
+    <label>
+      Archived?
+      <input
+        #Archived
+        name="Archived"
+        [(ngModel)]="task.Archived"
+        placeholder="Archived"
+      />
+    </label>
     <br />
   </div>
-  <button (click)="update()">
-    Update Task
-  </button>
-  <button (click)="delete()">Delete Task</button>
+  <div>
+    <button
+      (click)="
+        update(
+          TaskName.value,
+          Description.value,
+          Status.value,
+          Notes.value,
+          Archived.value
+        );
+        TaskName.value = '';
+        Description.value = '';
+        Status.value = '';
+        Notes.value = '';
+        Archived.value = ''
+      "
+    >
+      Update Task
+    </button>
+    <button (click)="delete()">Delete Task</button>
+  </div>
 </form>

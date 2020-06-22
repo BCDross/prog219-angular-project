@@ -21,8 +21,8 @@ export class TaskService {
     return this.http.get<Task>('http://localhost:3000/tasks/' + id);
   }
 
-  updateTask(task: Task): Observable<void> {
-    return this.http.put<void>('http://localhost:3000/tasks/' + task.TaskID, task);
+  updateTask(task: Task): Observable<Task> {
+    return this.http.put<Task>('http://localhost:3000/tasks/' + task.TaskID, task);
   }
 
   deleteTask(task: Task) {

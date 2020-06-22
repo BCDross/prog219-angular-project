@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ArchivedTasksComponent } from './archived-tasks/archived-tasks.component';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +14,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,7 @@ import { LogInComponent } from './log-in/log-in.component';
     MessagesComponent,
     ArchivedTasksComponent,
     UpdateTaskComponent,
-    TasksComponent,
-    LogInComponent
+    TasksComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +30,10 @@ import { LogInComponent } from './log-in/log-in.component';
     FormsModule,
     HttpClientModule,
     SocialLoginModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule,
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   exports: [
     FormsModule

@@ -4,7 +4,7 @@ export interface Task {
     Description: string;
     Status: string;
     Notes: string;
-    Archived: boolean;
+    Archived: string;
     // Creator: string;
     // Owner: string;
 }
