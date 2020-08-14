@@ -1,1 +1,9 @@
-<p>archived-tasks works!</p>
+<h2>Tasks by Status</h2>
+<div class="task_status" *ngFor="let entry of tasksByStatus | keyvalue">
+  <h3>{{entry.key}}</h3>
+  <ul>
+    <li *ngFor="let task of entry.value">
+      {{task.TaskName}}
+    </li>
+  </ul>
+</div>

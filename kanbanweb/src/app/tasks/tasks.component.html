@@ -56,25 +56,3 @@
 <div cdkDropList class="task-list" (cdkDropListDropped)="drop($event)">
   <div class="task-box" *ngFor="let task of tasks" cdkDrag>{{ task.TaskName }}</div>
 </div>
-
-
-<div class="board">
-  <div class="card-list mat-elevation-z1" *ngFor="let status of statuses; let i=index">
-
-    <h2 cdkDragHandle class="mat-h2">{{task.title}}</h2>
-
-    <div class="card-list-content" cdkDropList [id]="Status" [cdkDropListData]="task.Status" [cdkDropListConnectedTo]="Status"
-      (cdkDropListDropped)="onTaskDrop($event)" >
-
-
-      <mat-card style="margin: 2%;" *ngFor="let task of tasks" cdkDrag>
-        <!-- Use the mat-card-content to add the proper spacing. -->
-        <mat-card-content>
-          <h2>{{task.title}}</h2>
-          {{task.description}}
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-  </div>
-</div>
